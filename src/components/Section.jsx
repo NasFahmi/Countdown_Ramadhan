@@ -25,13 +25,13 @@ export default function Section() {
     "Desember",
   ];
   const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    "Minggu",
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jum'at",
+    "Sabtu",
   ];
   useEffect(() => {
     const interval = setInterval(() => {
