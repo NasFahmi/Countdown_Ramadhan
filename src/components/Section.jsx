@@ -52,7 +52,7 @@ export default function Section() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const respon = await axios.get(`http://api.aladhan.com/v1/calendarByCity/2023/3?city=${Location.City}&country=${Location.Country}&method=2`)
+        const respon = await axios.get(`https://api.aladhan.com/v1/calendarByCity/2023/3?city=${Location.City}&country=${Location.Country}&method=2`)
         let daysnow = Time.getDate() - 1;
         setData(respon.data.data[daysnow].timings)
       } catch (error) {
