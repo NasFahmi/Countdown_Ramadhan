@@ -1,3 +1,5 @@
-Simple CountDown Idul Fitri 
-NOTE : UNTUK SEARCH NYA BELUM BISA DIGUNAKAN, YANG BUAT MASIH UJIAN 
-DEFAULT LOCATION DI BANYUWANGI
+SImple Countdown Idul Fitr and Sholat Pray Time
+https://countdown-ramadhan.vercel.app/
+Fitur
+1. Akses Lokasi 
+2. Pencarian Lokasi
