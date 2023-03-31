@@ -18,8 +18,9 @@ To display the prayer schedule, fill out the City or Country input fields in Sea
 * HTML
 * CSS
 * JavaScript
+* React JS
 * Tailwindcss
-* Axios(Fecth API)
+* Axios (Fecth API)
 * Aladhan API
 * openstreet API
 * trueway-geolocation API
