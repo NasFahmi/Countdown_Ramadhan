@@ -85,7 +85,6 @@ export default function Section() {
           longitude: position.coords.longitude,
           latitude: position.coords.latitude
         })
-        console.log(Position)
       })
       setLocationAccess(true)
     }
@@ -144,13 +143,10 @@ export default function Section() {
       }
     };
     axios.request(options).then(function (response) {
-      console.log(response.data.results[0])
       setdataLocation(response.data.results[0])
     }).catch(function (error) {
       console.error(error);
     });
-    console.log(locationSearch)
-    console.log(dataLocation)
 
   }
   const clearSearch = () => {
@@ -161,7 +157,6 @@ export default function Section() {
     setCity(dataLocation?.locality || dataLocation?.region)
     setCountry(dataLocation?.country)
   }
-  console.log(City,Country)
 
 
 
