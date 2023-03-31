@@ -30,4 +30,4 @@ To display the prayer schedule, fill out the City or Country input fields in Sea
 
 
 # License
-This project is licensed under the MIT License - see the [LICENCE.md]() file for details.
+This project is licensed under the MIT License - see the [LICENCE.md](https://github.com/NasFahmi/Countdown_Ramadhan/blob/master/LICENCE.md) file for details.
