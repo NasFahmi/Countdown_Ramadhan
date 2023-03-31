@@ -77,9 +77,6 @@ export default function Section() {
       console.log(error)
     }
   }
-  useEffect(() => {
-    getcoords()
-  }, [Location])
 
   useEffect(() => {
     async function fetchData() {
@@ -91,6 +88,7 @@ export default function Section() {
         console.log(error)
       }
     }
+    getcoords()
     fetchData()
     return () => {
 
