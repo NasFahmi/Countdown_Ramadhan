@@ -27,3 +27,7 @@ To display the prayer schedule, fill out the City or Country input fields in Sea
 
 # Author
 * Nasrul Fahmi Ulumuddin
+
+
+# License
+This project is licensed under the MIT License - see the [LICENCE.md]() file for details.
