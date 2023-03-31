@@ -37,25 +37,21 @@ export default function Section() {
     "Jum'at",
     "Sabtu",
   ];
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date());
     }, 1000);
+
     return () => {
       clearInterval(interval);
     };
-  });
-  let day = days[Time.getDay()];
-  let month = monthNames[Time.getMonth()];
-  let year = Time.getFullYear();
-  let hours = Time.getHours();
-  let minutes = Time.getMinutes();
-  let seconds = Time.getSeconds();
+  }, [Time])
 
 
 
   //Get Location with GPS
-  const getCoordFromLocation = ()=>{
+  const getCoordFromLocation = async () => {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
@@ -66,7 +62,7 @@ export default function Section() {
       })
       setLocationAccess(true)
     }
-    else{
+    else {
       console.log('Lokasi tidak diizinkan')
       setLocationAccess(false)
     }
@@ -87,6 +83,7 @@ export default function Section() {
   }
 
   useEffect(() => {
+   
     async function fetchData() {
       try {
         const respon = await axios.get(`https://api.aladhan.com/v1/calendarByCity/2023/3?city=${Location.City}&country=${Location.Country}&method=2`)
@@ -95,16 +92,22 @@ export default function Section() {
       } catch (error) {
         console.log(error)
       }
+      
     }
     getCoordFromLocation()
     getcoords()
     fetchData()
-    return () => {
 
-    }
   }, [Location])
 
 
+
+  let day = days[Time.getDay()];
+  let month = monthNames[Time.getMonth()];
+  let year = Time.getFullYear();
+  let hours = Time.getHours();
+  let minutes = Time.getMinutes();
+  let seconds = Time.getSeconds();
 
 
   return (
@@ -132,13 +135,13 @@ export default function Section() {
                   />
                 </div>
               </form>
-              {LocationAccess?              
-              <h1 className="text-center text-lg text-white font-semibold mt-8 mb-4 md:text-2xl">
-                Current Location is {Location.City} {Location.Country}
-              </h1>: 
-              <h1 className="text-center text-lg text-white font-semibold mt-8 mb-4 md:text-2xl">
-                Current Location is Unknown
-              </h1>}
+              {LocationAccess ?
+                <h1 className="text-center text-lg text-white font-semibold mt-8 mb-4 md:text-2xl">
+                  Current Location is {Location.City} {Location.Country}
+                </h1> :
+                <h1 className="text-center text-lg text-white font-semibold mt-8 mb-4 md:text-2xl">
+                  Current Location is Unknown
+                </h1>}
 
               <div className="bg-whiteCostume rounded-2xl  mx-auto h-fit px-8 py-5 max-w-[316px]  lg:max-w-sm">
                 <h1 className="text-center">Current Time</h1>
