@@ -38,6 +38,7 @@ export default function Section() {
     "Sabtu",
   ];
 
+  //Current Time
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date());
@@ -47,7 +48,12 @@ export default function Section() {
       clearInterval(interval);
     };
   }, [Time])
-
+  let day = days[Time.getDay()];
+  let month = monthNames[Time.getMonth()];
+  let year = Time.getFullYear();
+  let hours = Time.getHours();
+  let minutes = Time.getMinutes();
+  let seconds = Time.getSeconds();
 
 
   //Get Location with GPS
@@ -68,7 +74,7 @@ export default function Section() {
     }
   }
 
-
+  //Get Latitude and Longitude
   const getcoords = async () => {
     try {
       const respon = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${Position.latitude}&lon=${Position.longitude}`)
@@ -82,18 +88,19 @@ export default function Section() {
     }
   }
 
+  //Fect Data With Location
+  async function fetchData() {
+    try {
+      const respon = await axios.get(`https://api.aladhan.com/v1/calendarByCity/2023/3?city=${Location.City}&country=${Location.Country}&method=2`)
+      let daysnow = Time.getDate() - 1;
+      setData(respon.data.data[daysnow].timings)
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
   useEffect(() => {
    
-    async function fetchData() {
-      try {
-        const respon = await axios.get(`https://api.aladhan.com/v1/calendarByCity/2023/3?city=${Location.City}&country=${Location.Country}&method=2`)
-        let daysnow = Time.getDate() - 1;
-        setData(respon.data.data[daysnow].timings)
-      } catch (error) {
-        console.log(error)
-      }
-      
-    }
     getCoordFromLocation()
     getcoords()
     fetchData()
@@ -102,12 +109,7 @@ export default function Section() {
 
 
 
-  let day = days[Time.getDay()];
-  let month = monthNames[Time.getMonth()];
-  let year = Time.getFullYear();
-  let hours = Time.getHours();
-  let minutes = Time.getMinutes();
-  let seconds = Time.getSeconds();
+
 
 
   return (
