@@ -6,10 +6,13 @@ export default function Section() {
   const [Time, setTime] = useState(new Date());
   const [Data, setData] = useState({})
   const [Location, setLocation] = useState({
-    City:'Banyuwangi',
-    Country:'Indonesia'
+    City: '',
+    Country: ''
   })
-
+  const [Position, setPosition] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
   const monthNames = [
     "Januari",
     "Februari",
@@ -49,6 +52,35 @@ export default function Section() {
   let seconds = Time.getSeconds();
 
 
+
+  //Get Location with GPS
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      setPosition({
+        longitude: position.coords.longitude,
+        latitude: position.coords.latitude
+      })
+    })
+  }
+
+
+  const getcoords = async () => {
+    try {
+      const respon = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${Position.latitude}&lon=${Position.longitude}`)
+      // console.log(respon.data)
+      setLocation({
+        City: respon.data.address.city,
+        Country: respon.data.address.country
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getcoords()
+  }, [Location])
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -63,7 +95,11 @@ export default function Section() {
     return () => {
 
     }
-  }, [])
+  }, [Location])
+
+
+
+
   return (
     <div>
       <div className="background bg-Sand w-full h-full">
@@ -90,7 +126,7 @@ export default function Section() {
                 </div>
               </form>
               <h1 className="text-center text-lg text-white font-semibold mt-8 mb-4 md:text-2xl">
-                Current Location is {Location.City}
+                Current Location is {Location.City} {Location.Country}
               </h1>
               <div className="bg-whiteCostume rounded-2xl  mx-auto h-fit px-8 py-5 max-w-[316px]  lg:max-w-sm">
                 <h1 className="text-center">Current Time</h1>
