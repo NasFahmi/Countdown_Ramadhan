@@ -121,7 +121,6 @@ export default function Section() {
   }
   // UseEffect Location GPS
   useEffect(() => {
-    console.log(City,Country)
     getCoordFromLocation()
     getcoords()
     fetchData()
@@ -159,11 +158,10 @@ export default function Section() {
     setdataLocation('')
   }
   const SelectLocation = () =>{
-    const city = dataLocation.locality || dataLocation.region
-    const country = dataLocation.country
-    setCity(city)
-    setCountry(country)
+    setCity(dataLocation?.locality || dataLocation?.region)
+    setCountry(dataLocation?.country)
   }
+  console.log(City,Country)
 
 
 
