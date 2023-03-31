@@ -13,6 +13,7 @@ export default function Section() {
     latitude: 0,
     longitude: 0,
   });
+  const [LocationAccess, setLocationAccess] = useState(true)
   const monthNames = [
     "Januari",
     "Februari",
@@ -54,14 +55,21 @@ export default function Section() {
 
 
   //Get Location with GPS
+  const getCoordFromLocation = ()=>{
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      setPosition({
-        longitude: position.coords.longitude,
-        latitude: position.coords.latitude
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        setPosition({
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude
+        })
       })
-    })
+      setLocationAccess(true)
+    }
+    else{
+      console.log('Lokasi tidak diizinkan')
+      setLocationAccess(false)
+    }
   }
 
 
@@ -88,6 +96,7 @@ export default function Section() {
         console.log(error)
       }
     }
+    getCoordFromLocation()
     getcoords()
     fetchData()
     return () => {
@@ -123,9 +132,14 @@ export default function Section() {
                   />
                 </div>
               </form>
+              {LocationAccess?              
               <h1 className="text-center text-lg text-white font-semibold mt-8 mb-4 md:text-2xl">
                 Current Location is {Location.City} {Location.Country}
-              </h1>
+              </h1>: 
+              <h1 className="text-center text-lg text-white font-semibold mt-8 mb-4 md:text-2xl">
+                Current Location is Unknown
+              </h1>}
+
               <div className="bg-whiteCostume rounded-2xl  mx-auto h-fit px-8 py-5 max-w-[316px]  lg:max-w-sm">
                 <h1 className="text-center">Current Time</h1>
                 <h1 className="font-semibold text-2xl mt-1 text-center">
