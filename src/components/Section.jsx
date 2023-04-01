@@ -28,6 +28,7 @@ export default function Section() {
     longitude: 0,
   });
   const [LocationAccess, setLocationAccess] = useState(true)
+  const [SelecLocataion, setSelecLocataion] = useState(false)
   //UseState Search Location
   const [locationSearch, setlocationSearch] = useState('')
   const [dataLocation, setdataLocation] = useState()
@@ -89,7 +90,6 @@ export default function Section() {
       setLocationAccess(true)
     }
     else {
-      console.log('Lokasi tidak diizinkan')
       setLocationAccess(false)
     }
   }
@@ -123,12 +123,13 @@ export default function Section() {
   
   // UseEffect Location GPS
   useEffect(() => {
-    if (!LocationAccess) {   
+    if (SelecLocataion) {      
+      fetchData()//get schadule
+    }else{
       getCoordFromLocation()//get latitude longtitude
       getcoords()//get convert to city country
       fetchData()//get schadule
     }
-    fetchData()//get schadule
 
   }, [City,Country])
 
@@ -162,6 +163,7 @@ export default function Section() {
   const SelectLocation = () =>{
     setCity(dataLocation?.locality || dataLocation?.region)
     setCountry(dataLocation?.country)
+    setSelecLocataion(true)
   }
   console.log(City, Country)
   console.log(dataLocation)
