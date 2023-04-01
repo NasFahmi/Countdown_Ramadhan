@@ -174,7 +174,7 @@ export default function Section() {
 
   return (
     <div>
-      <div className="background bg-Sand w-full h-full">
+      <div className="background bg-Sand w-full h-full brightness-[.85]">
         <div className="bg-darkBlue w-full h-full z-10 rounded-t-[45px] py-8 flex justify-center items-center flex-col">
           <div className="container py-8 flex justify-center items-center flex-col">
             <div className="container px-8 ">
