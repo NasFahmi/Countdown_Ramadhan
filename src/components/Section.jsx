@@ -97,10 +97,12 @@ export default function Section() {
   //Get Latitude and Longitude
   const getcoords = async () => {
     try {
-      const respon = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${Position.latitude}&lon=${Position.longitude}`)
-      // console.log(respon.data)
-      setCity(respon.data.address.city)
-      setCountry(respon.data.address.country)
+      if (LocationAccess) {
+        const respon = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${Position.latitude}&lon=${Position.longitude}`)
+        // console.log(respon.data)
+        setCity(respon.data.address.city)
+        setCountry(respon.data.address.country)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -109,8 +111,8 @@ export default function Section() {
   //Fect Data With Location
   async function fetchData() {
     try {
-      const respon = await axios.get(`https://api.aladhan.com/v1/calendarByCity/2023/3?city=${City}&country=${Country}&method=2`)
       const datenow = new Date()
+      const respon = await axios.get(`https://api.aladhan.com/v1/calendarByCity/2023/4?city=${City}&country=${Country}&method=2`)
       let daysnow = datenow.getDate() - 1;
       setData(respon.data.data[daysnow].timings)
     } catch (error) {
@@ -118,11 +120,15 @@ export default function Section() {
     }
 
   }
+  
   // UseEffect Location GPS
   useEffect(() => {
-    getCoordFromLocation()
-    getcoords()
-    fetchData()
+    if (!LocationAccess) {   
+      getCoordFromLocation()//get latitude longtitude
+      getcoords()//get convert to city country
+      fetchData()//get schadule
+    }
+    fetchData()//get schadule
 
   }, [City,Country])
 
@@ -157,6 +163,8 @@ export default function Section() {
     setCity(dataLocation?.locality || dataLocation?.region)
     setCountry(dataLocation?.country)
   }
+  console.log(City, Country)
+  console.log(dataLocation)
 
 
 
