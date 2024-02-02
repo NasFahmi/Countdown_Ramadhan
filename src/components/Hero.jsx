@@ -10,7 +10,7 @@ export default function Hero() {
     secound: 0,
   });
   useEffect(() => {
-    const countTarget = new Date("April 22, 2023").getTime();
+    const countTarget = new Date("April 10, 2024").getTime();
     const interval = setInterval(() => {
       const DateNow = new Date().getTime();
       const distance = countTarget - DateNow;
